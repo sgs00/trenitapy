@@ -9,20 +9,21 @@ Tests for `trenitapy` module.
 """
 
 import unittest
+from datetime import date, datetime, time, timedelta
 
-from trenitapy import trenitapy
+from trenitapy.trenitapy import TrenitApy
 
 
 class TestTrenitapy(unittest.TestCase):
 
     def setUp(self):
-        pass
+        self.api = TrenitApy()
 
     def tearDown(self):
         pass
 
-    def test_000_something(self):
-        pass
+    def test_andamento_treno(self):
+        assert isinstance(self.api.andamento_treno('S00228', '4640'), dict)
 
 
 if __name__ == '__main__':
