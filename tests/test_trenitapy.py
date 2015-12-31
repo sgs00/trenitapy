@@ -47,12 +47,12 @@ class TestTrenitapy(unittest.TestCase):
                          'tratta', ]
         d = self.api.andamento_treno('S00228', '4640')
         keys = sorted(d.keys())
-        assert keys == keys_expected
+        self.assertEqual(keys_expected, keys)
 
     def cerca_stazione(self):
         expected = [{"id": "S09008", "nomeLungo": "FRATTAMAGGIORE", "nomeBreve": "Frattamaggiore", "label": None}]
         stazioni = self.api.cerca_stazione('frattamaggiore')
-        assert stazioni == expected
+        self.assertEqual(stazioni, expected)
 
 
 if __name__ == '__main__':
