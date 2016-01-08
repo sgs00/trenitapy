@@ -32,6 +32,10 @@ class TrenitApy:
     def cerca_stazione(self, nome_stazione):
         return self.__class__._call('cercaStazione', nome_stazione)
 
+    def tratte_canvas(self):
+        'http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/tratteCanvas/IDStazionePartenza/numeroTreno'
+        pass
+
     def soluzioni_viaggio(self, _from, _to, _datetime):
         """
         http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/soluzioniViaggioNew/228/458/2015-01-26T00:00:00
