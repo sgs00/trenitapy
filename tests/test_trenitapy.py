@@ -54,6 +54,16 @@ class TestTrenitapy(unittest.TestCase):
         stazioni = self.api.cerca_stazione('frattamaggiore')
         self.assertEqual(stazioni, expected)
 
+    def test_soluzioni_viaggio(self):
+        napoli_centrale = 'S09218'
+        roma_termini = 'S08409'
+        now = datetime.now()
+        soluzioni = self.api.soluzioni_viaggio(napoli_centrale, roma_termini, now)
+        print(soluzioni)
+        expected_keys = ['destinazione', 'errore', 'origine', 'soluzioni']
+        soluzioni_keys = sorted(soluzioni.keys())
+        self.assertEqual(expected_keys, soluzioni_keys)
+
 
 if __name__ == '__main__':
     import sys
