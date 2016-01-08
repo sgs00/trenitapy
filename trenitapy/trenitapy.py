@@ -12,7 +12,9 @@ logger = logging.getLogger(__name__)
 class TrenitApy:
 
     @staticmethod
-    def _call(action, *args, fmt='json'):
+    def _call(action, *args, **kwargs):
+        fmt = kwargs.pop('fmt', None) or 'json'
+        
         base_url = 'http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno'
         url = '/'.join((base_url, action, ) + args)
         response = requests.get(url)
