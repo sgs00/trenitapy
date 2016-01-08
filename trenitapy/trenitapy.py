@@ -50,6 +50,35 @@ class TrenitApy:
         _datetime = _datetime.strftime('%Y-%m-%dT%H:%M:%S')
         return self.__class__._call('soluzioniViaggioNew', _from, _to, _datetime)
 
+    def cerca_numero_treno(self, numero_treno):
+        """Ricavare la stazione di partenza dal numero del treno:
+         http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/cercaNumeroTrenoTrenoAutocomplete/numeroTreno
+
+        Output: stringa di una o più righe esempio:
+        http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/cercaNumeroTrenoTrenoAutocomplete/4600
+        restituisce una riga
+        4600 - ASTI|4600-S00462
+        (4600 è il numero del treno, ASTI è il nome della stazione di partenza, S00462 il codice stazione
+         da usare nelle chiamate ad andamentoTreno e alle altre API
+
+        Se il numero del treno non è univoco, l'output sarà di più righe nello stesso formato:
+        http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/cercaNumeroTrenoTrenoAutocomplete/88
+        88 - VERONA PORTA NUOVA|88-S02430
+        88 - BRESCIA|88-N00201
+
+        :param numero_treno:
+        :return:
+        """
+        raw_results = self.__class__._call('cercaNumeroTrenoTrenoAutocomplete', numero_treno, fmt='raw')
+        results = list()
+        for r in raw_results.splitlines():
+            left, right = r.split('|')
+            n_treno, stazione = left.split(' - ')
+            n_treno, id_stazione = right.split('-')
+            results.append({'numeroTreno': numero_treno, 'stazione': stazione, 'idStazione': id_stazione})
+        return results
+
+
 if __name__ == '__main__':
     import doctest
     doctest.testmod()
